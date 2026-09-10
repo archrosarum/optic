@@ -1,48 +1,58 @@
-section .data
-    ; Buffer to hold our text output string:
-    ; 10 bytes for up to a 10-digit number, 1 byte for Carriage Return (\r), 1 byte for Newline (\n)
-    ; We initialize it to spaces (32)
-    buffer times 12 db 32  
+section .bss
+    ; A massive 64KB output buffer to hold thousands of updates at once
+    BUFFER_SIZE equ 65536
+    buffer resb BUFFER_SIZE
 
 section .text
 global _start
 
 _start:
-    mov r12, 0              ; Use R12 as our running counter variable
+    mov r12, 0              ; R12 = Our running counter variable
 
-.loop:
-    inc r12                 ; 1. Increment our counter by 1
+.outer_loop:
+    lea rdi, [buffer]       ; RDI points to the beginning of our 64KB RAM buffer
+
+.fill_buffer:
+    inc r12                 ; 1. Increment the counter
+
+    ; 2. Fast Inline Number-to-ASCII Conversion
+    mov rax, r12            
+    mov rsi, 10
+    lea rbx, [rdi + 10]     ; Temp pointer for right-to-left layout inside the local slot
     
-    ; 2. Convert the number in R12 into ASCII characters inside our buffer
-    mov rax, r12            ; Copy number to RAX for division
-    lea rdi, [buffer + 9]   ; Start filling buffer from right-to-left (before control chars)
-    
-.convert_loop:
-    xor rdx, rdx            ; Clear RDX before division
-    mov rsi, 10             ; Base 10
-    div rsi                 ; RAX = quotient, RDX = remainder (the digit)
-    add dl, '0'             ; Convert raw digit to ASCII (e.g., 5 -> '5')
-    mov [rdi], dl           ; Store ASCII char in buffer
-    dec rdi                 ; Move buffer pointer left for next digit
-    test rax, rax           ; Check if quotient is 0
-    jnz .convert_loop       ; If not 0, loop to extract next digit
+.convert:
+    xor rdx, rdx
+    div rsi
+    add dl, '0'
+    dec rbx
+    mov [rbx], dl
+    test rax, rax
+    jnz .convert
 
-    ; 3. Add a Carriage Return (\r) at the end of the text to reset the cursor position
-    mov byte [buffer + 10], 13  ; 13 is ASCII for Carriage Return (\r)
-    mov byte [buffer + 11], 10  ; Optional: Adding line feed just for output buffering alignment
+    ; Pad left side with spaces so it cleanly overwrites previous digits
+.pad:
+    cmp rbx, rdi
+    je .done_pad
+    dec rbx
+    mov byte [rbx], 32      ; 32 = Space character
+    jmp .pad
 
-    ; 4. Make a Linux System Call to print the buffer to the terminal
-    mov rax, 1              ; sys_write system call number
-    mov rdi, 1              ; File descriptor 1 (stdout / standard output)
-    mov rsi, buffer         ; Pointer to our text buffer
-    mov rdx, 12             ; Number of bytes to print
-    syscall                 ; Execute the print command
+.done_pad:
+    ; 3. Append Carriage Return (\r) to overwrite the line, instead of a newline (\n)
+    mov byte [rdi + 10], 13 ; 13 = \r
+    add rdi, 11             ; Advance our main buffer pointer forward 11 bytes
 
-    ; 5. Slow down the loop slightly so human eyes can see it (Optional)
-    ; Remove these lines if you want it to run at absolute maximum hardware speed!
-    mov rcx, 5000000        ; Loop counter for a small delay
-.delay:
-    dec rcx
-    jnz .delay
+    ; Check if our 64KB buffer is getting full
+    lea rcx, [buffer + BUFFER_SIZE - 32]
+    cmp rdi, rcx
+    jl .fill_buffer         ; If there's still plenty of space, keep filling RAM instantly
 
-    jmp .loop               ; Jump back and repeat forever
+    ; 4. Flush to Screen: Execute ONE single system call for the entire batch
+    mov rdx, rdi
+    sub rdx, buffer         ; Calculate exact number of bytes written to buffer
+    mov rax, 1              ; sys_write
+    mov rdi, 1              ; stdout
+    mov rsi, buffer         ; Address of our massive buffer
+    syscall                 ; Blast thousands of iterations to the terminal at once
+
+    jmp .outer_loop         ; Repeat the process forever
