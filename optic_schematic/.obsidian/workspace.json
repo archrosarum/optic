@@ -1,0 +1,229 @@
+{
+  "main": {
+    "id": "d3180e9145e860ef",
+    "type": "split",
+    "children": [
+      {
+        "id": "ecce1996ae3377bd",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1cc09d2889ee1ac5",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Task Attribute Reference Diagram.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Task Attribute Reference Diagram"
+            }
+          },
+          {
+            "id": "446d2574d3f5d710",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Task Attribute Reference Diagram.md"
+              },
+              "icon": "excalidraw-icon",
+              "title": "Task Attribute Reference Diagram"
+            }
+          },
+          {
+            "id": "abff4cbdceebf556",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Task Specification.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Task Specification"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1ae9c90f3db2eb15",
+    "type": "split",
+    "children": [
+      {
+        "id": "0583e6d7ed6b3505",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ddc7f061ab50d147",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "f139d9f6797eb388",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "99941d514aca062f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 279.35546875
+  },
+  "right": {
+    "id": "fcb67835b0d79491",
+    "type": "split",
+    "children": [
+      {
+        "id": "00a5e450e1a6f866",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cea112a1d2cb348e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Welcome.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "f3e1187654ce76d5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Welcome.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "3457036b6eda4bbd",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "5c2eaa93c41d23e5",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "ab5a37d1db9fb89b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Welcome.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-excalidraw-plugin:New drawing": false
+    }
+  },
+  "active": "abff4cbdceebf556",
+  "lastOpenFiles": [
+    "Task Attribute Reference Diagram.md",
+    "Task Specification.md",
+    "OPTIC Scheduler MK-I Specification.md",
+    "Drawing 2026-09-11 19.24.40.excalidraw.md",
+    "Excalidraw",
+    "Untitled.canvas",
+    "Untitled 1.md",
+    "Untitled.base",
+    "Welcome.md"
+  ]
+}
