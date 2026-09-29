@@ -1,0 +1,4 @@
+*.sql linguist-language=SQL
+*.sql linguist-detectable=true
+CMakeLists.txt linguist-detectable=false
+*.cmake linguist-detectable=false
