@@ -1,36 +1,27 @@
-/*
- * scheduler:
- * process for recieving unscheduled task data and computing a relative schedule.
- * it opens to handle args, persists until externally closed, and pipes output to stdout.
+/* scheduler.c
+ * This is the process for recieving unscheduled task data and computing a relative schedule.
  */
 
 #include "vectors.h"
+#include "datatypes.h"
 
-vector_array* schedule(vector block, int* tasks) {
-    vector_array* sched = new_vector_array();
+
+/* Schedule an unsorted array of tasks into a given block of time. */
+vector_array* schedule(vector block, int* tasks, int num_tasks) {
+    vector_array* scheduled = new_vector_array();
 
     int head = block.x;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < num_tasks; i++) {
         vector process = {head, head + tasks[i]};
+        push_vector(scheduled, process);
+
         head += tasks[i];
-        push_vector(sched, process);
     }
 
-    return sched;
+    return scheduled;
 }
 
-int main(int argc, char* argv[]) {
-    vector users_time = {9, 17};
-    int* tasks = malloc(sizeof(int) * 3);
-    tasks[0] = 1;
-    tasks[1] = 3;
-    tasks[2] = 4;
-
-
-    vector_array* sched = schedule(users_time, tasks);
-
-    write_vector_array(sched, STDOUT_FILENO);
-
-
-    return 0;
+/* Write scheduled block to a POSIX file number. */
+void write_schedule(vector_array* schedule, int fd) {
+    write_vector_array(schedule, fd);
 }
