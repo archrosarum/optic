@@ -14,7 +14,7 @@
 dynamic_array* new_dynamic_array(int block_size) {
 
     // Allocate and populate some memory for the struct
-    vector_array* arr = malloc(sizeof(vector_array));
+    dynamic_array* arr = malloc(sizeof(dynamic_array));
     *arr = (dynamic_array){NULL, block_size, 0};
 
     return arr; // Give the pointer to the caller
@@ -38,6 +38,7 @@ void insert_block(dynamic_array* arr, void* block, int i) {
     // Resize the dynamic array
     size_t new_size = ((size_t)arr->length + 1) * arr->block_size;
     arr->blocks = realloc(arr->blocks, new_size);
+    arr->length += 1;
 
     // Calculate location and size of data to move forwards
     size_t ptr_offset = (size_t)i * arr->block_size;
@@ -45,7 +46,7 @@ void insert_block(dynamic_array* arr, void* block, int i) {
 
     char* next_block = push_to + arr->block_size;
 
-    size_t blocks_ahead = (size_t)(arr->length - i);
+    size_t blocks_ahead = (size_t)(arr->length - i - 1);
     size_t bytes_ahead = blocks_ahead * arr->block_size;
 
     // Move data forwards to make room for new block
@@ -84,16 +85,12 @@ void* get_block(dynamic_array* arr, int i) {
 
 /* Scheduling data */
 
-task_array* new_task_array();
-void push_task(task_array* arr, task task);
+schedule_out* new_schedule_out() {
 
-// Provide a new schedule_result for the scheduler to populate and return. 
-schedule_result* new_schedule_result() {
+    schedule_out* out = malloc(sizeof(schedule_out));
 
-    schedule_result* result = malloc(sizeof(schedule_result));
+    out->chunk = new_dynamic_array(sizeof(float_vector));
+    out->overflow = new_dynamic_array(sizeof(task));
 
-    result->block = new_vector_array();
-    result->overflow = new_vector_array();
-
-    return result;
+    return out;
 }
